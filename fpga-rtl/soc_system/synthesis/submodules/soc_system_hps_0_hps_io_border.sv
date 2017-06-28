@@ -44,6 +44,12 @@ module soc_system_hps_0_hps_io_border(
  ,input wire [1 - 1 : 0 ] hps_io_emac1_inst_RXD1
  ,input wire [1 - 1 : 0 ] hps_io_emac1_inst_RXD2
  ,input wire [1 - 1 : 0 ] hps_io_emac1_inst_RXD3
+ ,inout wire [1 - 1 : 0 ] hps_io_sdio_inst_CMD
+ ,inout wire [1 - 1 : 0 ] hps_io_sdio_inst_D0
+ ,inout wire [1 - 1 : 0 ] hps_io_sdio_inst_D1
+ ,output wire [1 - 1 : 0 ] hps_io_sdio_inst_CLK
+ ,inout wire [1 - 1 : 0 ] hps_io_sdio_inst_D2
+ ,inout wire [1 - 1 : 0 ] hps_io_sdio_inst_D3
  ,inout wire [1 - 1 : 0 ] hps_io_usb1_inst_D0
  ,inout wire [1 - 1 : 0 ] hps_io_usb1_inst_D1
  ,inout wire [1 - 1 : 0 ] hps_io_usb1_inst_D2
@@ -75,27 +81,32 @@ module soc_system_hps_0_hps_io_border(
 );
 
 assign hps_io_emac1_inst_MDIO = intermediate[1] ? intermediate[0] : 'z;
-assign hps_io_usb1_inst_D0 = intermediate[3] ? intermediate[2] : 'z;
-assign hps_io_usb1_inst_D1 = intermediate[5] ? intermediate[4] : 'z;
-assign hps_io_usb1_inst_D2 = intermediate[7] ? intermediate[6] : 'z;
-assign hps_io_usb1_inst_D3 = intermediate[9] ? intermediate[8] : 'z;
-assign hps_io_usb1_inst_D4 = intermediate[11] ? intermediate[10] : 'z;
-assign hps_io_usb1_inst_D5 = intermediate[13] ? intermediate[12] : 'z;
-assign hps_io_usb1_inst_D6 = intermediate[15] ? intermediate[14] : 'z;
-assign hps_io_usb1_inst_D7 = intermediate[17] ? intermediate[16] : 'z;
-assign hps_io_spim1_inst_MOSI = intermediate[19] ? intermediate[18] : 'z;
-assign hps_io_i2c0_inst_SDA = intermediate[20] ? '0 : 'z;
-assign hps_io_i2c0_inst_SCL = intermediate[21] ? '0 : 'z;
-assign hps_io_i2c1_inst_SDA = intermediate[22] ? '0 : 'z;
-assign hps_io_i2c1_inst_SCL = intermediate[23] ? '0 : 'z;
-assign hps_io_gpio_inst_GPIO09 = intermediate[25] ? intermediate[24] : 'z;
-assign hps_io_gpio_inst_GPIO35 = intermediate[27] ? intermediate[26] : 'z;
-assign hps_io_gpio_inst_GPIO40 = intermediate[29] ? intermediate[28] : 'z;
-assign hps_io_gpio_inst_GPIO53 = intermediate[31] ? intermediate[30] : 'z;
-assign hps_io_gpio_inst_GPIO54 = intermediate[33] ? intermediate[32] : 'z;
-assign hps_io_gpio_inst_GPIO61 = intermediate[35] ? intermediate[34] : 'z;
+assign hps_io_sdio_inst_CMD = intermediate[3] ? intermediate[2] : 'z;
+assign hps_io_sdio_inst_D0 = intermediate[5] ? intermediate[4] : 'z;
+assign hps_io_sdio_inst_D1 = intermediate[7] ? intermediate[6] : 'z;
+assign hps_io_sdio_inst_D2 = intermediate[9] ? intermediate[8] : 'z;
+assign hps_io_sdio_inst_D3 = intermediate[11] ? intermediate[10] : 'z;
+assign hps_io_usb1_inst_D0 = intermediate[13] ? intermediate[12] : 'z;
+assign hps_io_usb1_inst_D1 = intermediate[15] ? intermediate[14] : 'z;
+assign hps_io_usb1_inst_D2 = intermediate[17] ? intermediate[16] : 'z;
+assign hps_io_usb1_inst_D3 = intermediate[19] ? intermediate[18] : 'z;
+assign hps_io_usb1_inst_D4 = intermediate[21] ? intermediate[20] : 'z;
+assign hps_io_usb1_inst_D5 = intermediate[23] ? intermediate[22] : 'z;
+assign hps_io_usb1_inst_D6 = intermediate[25] ? intermediate[24] : 'z;
+assign hps_io_usb1_inst_D7 = intermediate[27] ? intermediate[26] : 'z;
+assign hps_io_spim1_inst_MOSI = intermediate[29] ? intermediate[28] : 'z;
+assign hps_io_i2c0_inst_SDA = intermediate[30] ? '0 : 'z;
+assign hps_io_i2c0_inst_SCL = intermediate[31] ? '0 : 'z;
+assign hps_io_i2c1_inst_SDA = intermediate[32] ? '0 : 'z;
+assign hps_io_i2c1_inst_SCL = intermediate[33] ? '0 : 'z;
+assign hps_io_gpio_inst_GPIO09 = intermediate[35] ? intermediate[34] : 'z;
+assign hps_io_gpio_inst_GPIO35 = intermediate[37] ? intermediate[36] : 'z;
+assign hps_io_gpio_inst_GPIO40 = intermediate[39] ? intermediate[38] : 'z;
+assign hps_io_gpio_inst_GPIO53 = intermediate[41] ? intermediate[40] : 'z;
+assign hps_io_gpio_inst_GPIO54 = intermediate[43] ? intermediate[42] : 'z;
+assign hps_io_gpio_inst_GPIO61 = intermediate[45] ? intermediate[44] : 'z;
 
-wire [36 - 1 : 0] intermediate;
+wire [46 - 1 : 0] intermediate;
 
 wire [102 - 1 : 0] floating;
 
@@ -139,6 +150,40 @@ cyclonev_hps_peripheral_emac emac1_inst(
 );
 
 
+cyclonev_hps_peripheral_sdmmc sdio_inst(
+ .SDMMC_DATA_I({
+    hps_io_sdio_inst_D3[0:0] // 3:3
+   ,hps_io_sdio_inst_D2[0:0] // 2:2
+   ,hps_io_sdio_inst_D1[0:0] // 1:1
+   ,hps_io_sdio_inst_D0[0:0] // 0:0
+  })
+,.SDMMC_CMD_O({
+    intermediate[2:2] // 0:0
+  })
+,.SDMMC_CCLK({
+    hps_io_sdio_inst_CLK[0:0] // 0:0
+  })
+,.SDMMC_DATA_O({
+    intermediate[10:10] // 3:3
+   ,intermediate[8:8] // 2:2
+   ,intermediate[6:6] // 1:1
+   ,intermediate[4:4] // 0:0
+  })
+,.SDMMC_CMD_OE({
+    intermediate[3:3] // 0:0
+  })
+,.SDMMC_CMD_I({
+    hps_io_sdio_inst_CMD[0:0] // 0:0
+  })
+,.SDMMC_DATA_OE({
+    intermediate[11:11] // 3:3
+   ,intermediate[9:9] // 2:2
+   ,intermediate[7:7] // 1:1
+   ,intermediate[5:5] // 0:0
+  })
+);
+
+
 cyclonev_hps_peripheral_usb usb1_inst(
  .USB_ULPI_STP({
     hps_io_usb1_inst_STP[0:0] // 0:0
@@ -160,27 +205,27 @@ cyclonev_hps_peripheral_usb usb1_inst(
     hps_io_usb1_inst_DIR[0:0] // 0:0
   })
 ,.USB_ULPI_DATA_O({
-    intermediate[16:16] // 7:7
-   ,intermediate[14:14] // 6:6
-   ,intermediate[12:12] // 5:5
-   ,intermediate[10:10] // 4:4
-   ,intermediate[8:8] // 3:3
-   ,intermediate[6:6] // 2:2
-   ,intermediate[4:4] // 1:1
-   ,intermediate[2:2] // 0:0
+    intermediate[26:26] // 7:7
+   ,intermediate[24:24] // 6:6
+   ,intermediate[22:22] // 5:5
+   ,intermediate[20:20] // 4:4
+   ,intermediate[18:18] // 3:3
+   ,intermediate[16:16] // 2:2
+   ,intermediate[14:14] // 1:1
+   ,intermediate[12:12] // 0:0
   })
 ,.USB_ULPI_CLK({
     hps_io_usb1_inst_CLK[0:0] // 0:0
   })
 ,.USB_ULPI_DATA_OE({
-    intermediate[17:17] // 7:7
-   ,intermediate[15:15] // 6:6
-   ,intermediate[13:13] // 5:5
-   ,intermediate[11:11] // 4:4
-   ,intermediate[9:9] // 3:3
-   ,intermediate[7:7] // 2:2
-   ,intermediate[5:5] // 1:1
-   ,intermediate[3:3] // 0:0
+    intermediate[27:27] // 7:7
+   ,intermediate[25:25] // 6:6
+   ,intermediate[23:23] // 5:5
+   ,intermediate[21:21] // 4:4
+   ,intermediate[19:19] // 3:3
+   ,intermediate[17:17] // 2:2
+   ,intermediate[15:15] // 1:1
+   ,intermediate[13:13] // 0:0
   })
 );
 
@@ -190,10 +235,10 @@ cyclonev_hps_peripheral_spi_master spim1_inst(
     hps_io_spim1_inst_MISO[0:0] // 0:0
   })
 ,.SPI_MASTER_TXD({
-    intermediate[18:18] // 0:0
+    intermediate[28:28] // 0:0
   })
 ,.SPI_MASTER_SSI_OE_N({
-    intermediate[19:19] // 0:0
+    intermediate[29:29] // 0:0
   })
 ,.SPI_MASTER_SCLK({
     hps_io_spim1_inst_CLK[0:0] // 0:0
@@ -222,10 +267,10 @@ cyclonev_hps_peripheral_i2c i2c0_inst(
     hps_io_i2c0_inst_SCL[0:0] // 0:0
   })
 ,.I2C_DATA_OE({
-    intermediate[20:20] // 0:0
+    intermediate[30:30] // 0:0
   })
 ,.I2C_CLK_OE({
-    intermediate[21:21] // 0:0
+    intermediate[31:31] // 0:0
   })
 );
 
@@ -238,10 +283,10 @@ cyclonev_hps_peripheral_i2c i2c1_inst(
     hps_io_i2c1_inst_SCL[0:0] // 0:0
   })
 ,.I2C_DATA_OE({
-    intermediate[22:22] // 0:0
+    intermediate[32:32] // 0:0
   })
 ,.I2C_CLK_OE({
-    intermediate[23:23] // 0:0
+    intermediate[33:33] // 0:0
   })
 );
 
@@ -257,20 +302,20 @@ cyclonev_hps_peripheral_gpio gpio_inst(
    ,floating[21:16] // 5:0
   })
 ,.GPIO1_PORTA_OE({
-    intermediate[33:33] // 25:25
-   ,intermediate[31:31] // 24:24
+    intermediate[43:43] // 25:25
+   ,intermediate[41:41] // 24:24
    ,floating[33:22] // 23:12
-   ,intermediate[29:29] // 11:11
+   ,intermediate[39:39] // 11:11
    ,floating[37:34] // 10:7
-   ,intermediate[27:27] // 6:6
+   ,intermediate[37:37] // 6:6
    ,floating[43:38] // 5:0
   })
 ,.GPIO2_PORTA_O({
-    intermediate[34:34] // 3:3
+    intermediate[44:44] // 3:3
    ,floating[46:44] // 2:0
   })
 ,.GPIO0_PORTA_O({
-    intermediate[24:24] // 9:9
+    intermediate[34:34] // 9:9
    ,floating[55:47] // 8:0
   })
 ,.GPIO2_PORTA_I({
@@ -278,7 +323,7 @@ cyclonev_hps_peripheral_gpio gpio_inst(
    ,floating[58:56] // 2:0
   })
 ,.GPIO2_PORTA_OE({
-    intermediate[35:35] // 3:3
+    intermediate[45:45] // 3:3
    ,floating[61:59] // 2:0
   })
 ,.GPIO0_PORTA_I({
@@ -286,16 +331,16 @@ cyclonev_hps_peripheral_gpio gpio_inst(
    ,floating[70:62] // 8:0
   })
 ,.GPIO0_PORTA_OE({
-    intermediate[25:25] // 9:9
+    intermediate[35:35] // 9:9
    ,floating[79:71] // 8:0
   })
 ,.GPIO1_PORTA_O({
-    intermediate[32:32] // 25:25
-   ,intermediate[30:30] // 24:24
+    intermediate[42:42] // 25:25
+   ,intermediate[40:40] // 24:24
    ,floating[91:80] // 23:12
-   ,intermediate[28:28] // 11:11
+   ,intermediate[38:38] // 11:11
    ,floating[95:92] // 10:7
-   ,intermediate[26:26] // 6:6
+   ,intermediate[36:36] // 6:6
    ,floating[101:96] // 5:0
   })
 );

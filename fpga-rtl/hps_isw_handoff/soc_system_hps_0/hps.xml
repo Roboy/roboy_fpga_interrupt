@@ -18,7 +18,7 @@
     <config name='periph_pll_c0' value='511' />
     <config name='periph_pll_c1' value='3' />
     <config name='periph_pll_c2' value='511' />
-    <config name='periph_pll_c3' value='511' />
+    <config name='periph_pll_c3' value='4' />
     <config name='periph_pll_c4' value='4' />
     <config name='periph_pll_c5' value='511' />
     <config name='usb_mp_clk_div' value='0' />
@@ -46,8 +46,8 @@
     <config name='emac0_clk_hz' value='1953125' />
     <config name='emac1_clk_hz' value='250000000' />
     <config name='usb_mp_clk_hz' value='200000000' />
-    <config name='nand_clk_hz' value='488281' />
-    <config name='sdmmc_clk_hz' value='1953125' />
+    <config name='nand_clk_hz' value='50000000' />
+    <config name='sdmmc_clk_hz' value='200000000' />
     <config name='qspi_clk_hz' value='3613281' />
     <config name='spi_m_clk_hz' value='200000000' />
     <config name='can0_clk_hz' value='12500000' />
@@ -58,8 +58,8 @@
     <config name='sdram_pll_c5' value='5' />
   </system>
   <fpga_interfaces>
-    <config name='F2H_AXI_SLAVE' used='false' />
-    <config name='H2F_AXI_MASTER' used='false' />
+    <config name='F2H_AXI_SLAVE' used='true' />
+    <config name='H2F_AXI_MASTER' used='true' />
     <config name='LWH2F_AXI_MASTER' used='true' />
     <config name='F2SDRAM_COMMAND_PORT_USED' value='0x0' />
     <config name='F2SDRAM_READ_PORT_USED' value='0x0' />
@@ -76,8 +76,8 @@
       <config name='CONFIG_HPS_QSPI_CS1' value='0' />
       <config name='CONFIG_HPS_QSPI_CS0' value='0' />
     </peripheral>
-    <peripheral name='sdmmc' used='false'>
-      <config name='CONFIG_HPS_SDMMC_BUSWIDTH' value='0' />
+    <peripheral name='sdmmc' used='true'>
+      <config name='CONFIG_HPS_SDMMC_BUSWIDTH' value='4' />
     </peripheral>
     <peripheral name='usb0' used='false' />
     <peripheral name='usb1' used='true' />
@@ -120,6 +120,12 @@
     <pin_mux name='MIXED1IO11' choice='EMAC1_RXD1' value='2' />
     <pin_mux name='MIXED1IO12' choice='EMAC1_RXD2' value='2' />
     <pin_mux name='MIXED1IO13' choice='EMAC1_RXD3' value='2' />
+    <pin_mux name='FLASHIO0' choice='SDIO_CMD' value='3' />
+    <pin_mux name='FLASHIO2' choice='SDIO_D0' value='3' />
+    <pin_mux name='FLASHIO3' choice='SDIO_D1' value='3' />
+    <pin_mux name='FLASHIO9' choice='SDIO_CLK' value='3' />
+    <pin_mux name='FLASHIO10' choice='SDIO_D2' value='3' />
+    <pin_mux name='FLASHIO11' choice='SDIO_D3' value='3' />
     <pin_mux name='EMACIO1' choice='USB1_D0' value='2' />
     <pin_mux name='EMACIO2' choice='USB1_D1' value='2' />
     <pin_mux name='EMACIO3' choice='USB1_D2' value='2' />

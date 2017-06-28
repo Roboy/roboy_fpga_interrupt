@@ -1,4 +1,17 @@
-// (C) 2001-2015 Altera Corporation. All rights reserved.
+// (C) 2001-2017 Intel Corporation. All rights reserved.
+// Your use of Intel Corporation's design tools, logic functions and other 
+// software and tools, and its AMPP partner logic functions, and any output 
+// files any of the foregoing (including device programming or simulation 
+// files), and any associated documentation or information are expressly subject 
+// to the terms and conditions of the Intel Program License Subscription 
+// Agreement, Intel MegaCore Function License Agreement, or other applicable 
+// license agreement, including, without limitation, that your use is for the 
+// sole purpose of programming logic devices manufactured by Intel and sold by 
+// Intel or its authorized distributors.  Please refer to the applicable 
+// agreement for further details.
+
+
+// (C) 2001-2014 Altera Corporation. All rights reserved.
 // Your use of Altera Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files any of the foregoing (including device programming or simulation 
@@ -11,9 +24,9 @@
 // agreement for further details.
 
 
-// $Id: //acds/rel/14.1/ip/merlin/altera_merlin_multiplexer/altera_merlin_multiplexer.sv.terp#1 $
+// $Id: //acds/rel/17.0std/ip/merlin/altera_merlin_multiplexer/altera_merlin_multiplexer.sv.terp#1 $
 // $Revision: #1 $
-// $Date: 2014/10/06 $
+// $Date: 2017/01/22 $
 // $Author: swbranch $
 
 // ------------------------------------------
@@ -72,13 +85,12 @@ module soc_system_mm_interconnect_1_cmd_mux
     localparam ST_CHANNEL_W     = 2;
     localparam PKT_TRANS_LOCK   = 72;
 
-	assign	src_valid			=  sink0_valid;
-	assign	src_data			=  sink0_data;
-	assign	src_channel			=  sink0_channel;
-	assign	src_startofpacket	=  sink0_startofpacket;
-	assign	src_endofpacket		=  sink0_endofpacket;
-	assign	sink0_ready			=  src_ready;
+    assign	src_valid			=  sink0_valid;
+    assign	src_data			=  sink0_data;
+    assign	src_channel			=  sink0_channel;
+    assign	src_startofpacket  	        =  sink0_startofpacket;
+    assign	src_endofpacket		        =  sink0_endofpacket;
+    assign	sink0_ready			=  src_ready;
 endmodule
-
 
 

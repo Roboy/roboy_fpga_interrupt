@@ -1,4 +1,4 @@
-KERNEL_LOCATION=/home/roboy/intelFPGA/17.0/embedded/embeddedsw/socfpga/sources/linux-socfpga
+KERNEL_LOCATION=linux-socfpga
 ARMMAKE=make ARCH=arm SUBARCH=arm CROSS_COMPILE=arm-linux-gnueabihf-
 
 obj-m := fpga_uinput.o

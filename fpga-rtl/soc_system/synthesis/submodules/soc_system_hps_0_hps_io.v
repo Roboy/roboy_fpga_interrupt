@@ -37,6 +37,12 @@ module soc_system_hps_0_hps_io (
 		input  wire        hps_io_emac1_inst_RXD1,   //       .hps_io_emac1_inst_RXD1
 		input  wire        hps_io_emac1_inst_RXD2,   //       .hps_io_emac1_inst_RXD2
 		input  wire        hps_io_emac1_inst_RXD3,   //       .hps_io_emac1_inst_RXD3
+		inout  wire        hps_io_sdio_inst_CMD,     //       .hps_io_sdio_inst_CMD
+		inout  wire        hps_io_sdio_inst_D0,      //       .hps_io_sdio_inst_D0
+		inout  wire        hps_io_sdio_inst_D1,      //       .hps_io_sdio_inst_D1
+		output wire        hps_io_sdio_inst_CLK,     //       .hps_io_sdio_inst_CLK
+		inout  wire        hps_io_sdio_inst_D2,      //       .hps_io_sdio_inst_D2
+		inout  wire        hps_io_sdio_inst_D3,      //       .hps_io_sdio_inst_D3
 		inout  wire        hps_io_usb1_inst_D0,      //       .hps_io_usb1_inst_D0
 		inout  wire        hps_io_usb1_inst_D1,      //       .hps_io_usb1_inst_D1
 		inout  wire        hps_io_usb1_inst_D2,      //       .hps_io_usb1_inst_D2
@@ -98,6 +104,12 @@ module soc_system_hps_0_hps_io (
 		.hps_io_emac1_inst_RXD1   (hps_io_emac1_inst_RXD1),   //       .hps_io_emac1_inst_RXD1
 		.hps_io_emac1_inst_RXD2   (hps_io_emac1_inst_RXD2),   //       .hps_io_emac1_inst_RXD2
 		.hps_io_emac1_inst_RXD3   (hps_io_emac1_inst_RXD3),   //       .hps_io_emac1_inst_RXD3
+		.hps_io_sdio_inst_CMD     (hps_io_sdio_inst_CMD),     //       .hps_io_sdio_inst_CMD
+		.hps_io_sdio_inst_D0      (hps_io_sdio_inst_D0),      //       .hps_io_sdio_inst_D0
+		.hps_io_sdio_inst_D1      (hps_io_sdio_inst_D1),      //       .hps_io_sdio_inst_D1
+		.hps_io_sdio_inst_CLK     (hps_io_sdio_inst_CLK),     //       .hps_io_sdio_inst_CLK
+		.hps_io_sdio_inst_D2      (hps_io_sdio_inst_D2),      //       .hps_io_sdio_inst_D2
+		.hps_io_sdio_inst_D3      (hps_io_sdio_inst_D3),      //       .hps_io_sdio_inst_D3
 		.hps_io_usb1_inst_D0      (hps_io_usb1_inst_D0),      //       .hps_io_usb1_inst_D0
 		.hps_io_usb1_inst_D1      (hps_io_usb1_inst_D1),      //       .hps_io_usb1_inst_D1
 		.hps_io_usb1_inst_D2      (hps_io_usb1_inst_D2),      //       .hps_io_usb1_inst_D2
