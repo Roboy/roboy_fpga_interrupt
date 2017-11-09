@@ -1,5 +1,5 @@
 CC=arm-linux-gnueabihf-gcc
-CFLAGS=-Wall -O3
+CFLAGS=-Wall -O0 -g
 
 all: readstate
 

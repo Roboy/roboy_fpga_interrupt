@@ -9,8 +9,8 @@
 #include <errno.h>
 
 #define SYSFS_FILE "/sys/bus/platform/drivers/fpga_uinput/fpga_uinput"
-#define NUM_SWITCHES 4
-#define NUM_KEYS 4
+#define NUM_SWITCHES 0
+#define NUM_KEYS 2
 
 void print_state_change(uint8_t cur_state, uint8_t last_state)
 {

@@ -81,31 +81,43 @@ static int __init fpga_uinput_init(void)
 	int ret;
 	struct resource *res;
 
+pr_info(KERN_ERR "initalizing biatch\n");
+
 	ret = driver_register(&fpga_uinput_driver);
-	if (ret < 0)
+	if (ret < 0){
+		printk("fail_driver_register\n");
 		goto fail_driver_register;
+	}
+
 
 	ret = driver_create_file(&fpga_uinput_driver,
 			&driver_attr_fpga_uinput);
-	if (ret < 0)
+	if (ret < 0){
+		printk("fail_create_file\n");
 		goto fail_create_file;
+	}
 
 	res = request_mem_region(UINPUT_BASE, UINPUT_SIZE, "fpga_uinput");
 	if (res == NULL) {
 		ret = -EBUSY;
+		printk("fail_request_mem\n");
 		goto fail_request_mem;
 	}
 
 	fpga_uinput_mem = ioremap(UINPUT_BASE, UINPUT_SIZE);
 	if (fpga_uinput_mem == NULL) {
 		ret = -EFAULT;
+		printk("fail_ioremap\n");
 		goto fail_ioremap;
 	}
 
 	ret = request_irq(UINPUT_INT_NUM, fpga_uinput_interrupt,
 			0, "fpga_uinput", NULL);
-	if (ret < 0)
+	if (ret < 0){
+		printk("fail_request_irq\n");
 		goto fail_request_irq;
+	}
+
 
 	return 0;
 
