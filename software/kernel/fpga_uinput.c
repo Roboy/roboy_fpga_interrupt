@@ -13,7 +13,7 @@
 
 #define UINPUT_BASE 0xff200000
 #define UINPUT_SIZE PAGE_SIZE
-#define UINPUT_INT_NUM 72
+#define UINPUT_INT_NUM 104
 
 void *fpga_uinput_mem;
 
@@ -26,9 +26,10 @@ static uint8_t input_state;
 
 static irqreturn_t fpga_uinput_interrupt(int irq, void *dev_id)
 {
+	printk("interrupt for %d\n", irq);
 	if (irq != UINPUT_INT_NUM)
 		return IRQ_NONE;
-
+	printk("interrupt for me %d\n", irq);
 	spin_lock(&interrupt_flag_lock);
 	interrupt_flag = 1;
 	input_state = ioread8(fpga_uinput_mem);
@@ -81,43 +82,31 @@ static int __init fpga_uinput_init(void)
 	int ret;
 	struct resource *res;
 
-pr_info(KERN_ERR "initalizing biatch\n");
-
 	ret = driver_register(&fpga_uinput_driver);
-	if (ret < 0){
-		printk("fail_driver_register\n");
+	if (ret < 0)
 		goto fail_driver_register;
-	}
-
 
 	ret = driver_create_file(&fpga_uinput_driver,
 			&driver_attr_fpga_uinput);
-	if (ret < 0){
-		printk("fail_create_file\n");
+	if (ret < 0)
 		goto fail_create_file;
-	}
 
 	res = request_mem_region(UINPUT_BASE, UINPUT_SIZE, "fpga_uinput");
 	if (res == NULL) {
 		ret = -EBUSY;
-		printk("fail_request_mem\n");
 		goto fail_request_mem;
 	}
 
 	fpga_uinput_mem = ioremap(UINPUT_BASE, UINPUT_SIZE);
 	if (fpga_uinput_mem == NULL) {
 		ret = -EFAULT;
-		printk("fail_ioremap\n");
 		goto fail_ioremap;
 	}
 
 	ret = request_irq(UINPUT_INT_NUM, fpga_uinput_interrupt,
 			0, "fpga_uinput", NULL);
-	if (ret < 0){
-		printk("fail_request_irq\n");
+	if (ret < 0)
 		goto fail_request_irq;
-	}
-
 
 	return 0;
 
